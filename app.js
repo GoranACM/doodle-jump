@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const grid = document.querySelector('.grid');
   const doodler = document.createElement('div');
+  const div = document.createElement('div');
 
   let doodlerLeftSpace = 50;
   let startPoint = 150;
@@ -15,7 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let rightTimerId;
   let isGoingLeft = false;
   let isGoingRight = false;
+  const welcomeText = 'Welcome to BoxJump';
+  let scoreText = 'Your score is: ';
   let score = 0;
+  const btn = document.createElement('BUTTON');
+  let restartBtn = "<i class='fas fa-redo-alt'></i>";
+  let startBtn = '<i class="fas fa-play"></i>';
 
   function createDoodler() {
     grid.appendChild(doodler);
@@ -110,7 +116,10 @@ document.addEventListener('DOMContentLoaded', () => {
     while (grid.firstChild) {
       grid.removeChild(grid.firstChild);
     }
+    // grid.innerHTML = scoreText;
     grid.innerHTML = score;
+    btn.innerHTML = restartBtn;
+    grid.append(btn);
     clearInterval(upTimerId);
     clearInterval(downTimerId);
     clearInterval(leftTimerId);
@@ -165,7 +174,16 @@ document.addEventListener('DOMContentLoaded', () => {
     clearInterval(leftTimerId);
   }
 
-  function start() {
+  //attach a button
+  grid.appendChild(div);
+  div.innerHTML = welcomeText;
+  btn.innerHTML = startBtn;
+  grid.append(btn);
+  btn.setAttribute('id', 'start');
+
+  document.getElementById('start').onclick = function start() {
+    div.style.display = 'none';
+    btn.style.display = 'none';
     if (!isGameOver) {
       createPlatforms();
       createDoodler();
@@ -173,8 +191,11 @@ document.addEventListener('DOMContentLoaded', () => {
       jump();
       document.addEventListener('keyup', control);
     }
-  }
-
-  //attach a button
-  start();
+  };
+  // var st = document.getElementById('start');
+  // if (st.addEventListener) {
+  //   st.addEventListener('click', start(), false);
+  // } else if (st.attachEvent) {
+  //   st.attachEvent('onclick', start());
+  // }
 });
