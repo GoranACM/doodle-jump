@@ -139,6 +139,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // window.onload = buttons;
+
+  // function buttons() {
+  //   document.querySelectorAll('button').onclick = btnControl;
+  // }
+
+  const buttons = document.querySelectorAll('button');
+
+  function btnControl(e) {
+    if (e.target.id === 'right') {
+      moveRight();
+    } else if (e.target.id === 'left') {
+      moveLeft();
+    } else if (e.target.id === 'straight') {
+      moveStraight();
+    }
+  }
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', btnControl);
+  });
+  // function goRight(e) {
+  //   if (e.target.id === 'right') {
+  //     moveRight();
+  //     //document.getElementById('right').addEventListener('click', moveRight);
+  //   }
+  // }
+
+  // function goLeft(e) {
+  //   if (e.target.id === 'left') {
+  //     moveLeft();
+  //     //document.getElementById('right').addEventListener('click', moveRight);
+  //   }
+  // }
+
+  // function goStraight(e) {
+  //   if (e.target.id === 'straight') {
+  //     moveStraight();
+  //     //document.getElementById('right').addEventListener('click', moveRight);
+  //   }
+  // }
+
   function moveLeft() {
     if (isGoingRight) {
       clearInterval(rightTimerId);
@@ -190,6 +232,12 @@ document.addEventListener('DOMContentLoaded', () => {
       setInterval(movePlatforms, 30);
       jump();
       document.addEventListener('keyup', control);
+      // document.addEventListener('click', buttons);
+      document.addEventListener('click', buttons);
+
+      // document.addEventListener('click', goLeft);
+      // document.addEventListener('click', goRight);
+      // document.addEventListener('click', goStraight);
     }
   };
   // var st = document.getElementById('start');
