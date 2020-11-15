@@ -10,7 +10,11 @@
 .doodler {
   width: 60px;
   height: 85px;
-  background-color: red;
+  fill: (204, 200, 52);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url(https://raw.githubusercontent.com/JasonMize/coding-league-assets/master/doodle-jump-doodler.png);
   position: absolute;
 }
 

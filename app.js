@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const grid = document.querySelector('.grid');
   const doodler = document.createElement('div');
   const div = document.createElement('div');
+  const reloadDiv = document.createElement('div');
 
   let doodlerLeftSpace = 50;
   let startPoint = 150;
@@ -16,12 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
   let rightTimerId;
   let isGoingLeft = false;
   let isGoingRight = false;
-  const welcomeText = 'Welcome to BoxJump';
+  const welcomeText = 'Welcome to Box Jump';
   let scoreText = 'Your score is: ';
   let score = 0;
-  const btn = document.createElement('BUTTON');
-  let restartBtn = "<i class='fas fa-redo-alt'></i>";
-  let startBtn = '<i class="fas fa-play"></i>';
+  const restartBtn = document.createElement('BUTTON');
+  let restartBtnIcon = '<i class="fas fa-redo-alt"></i>';
+  const startBtn = document.createElement('BUTTON');
+  let startBtnIcon = '<i class="fas fa-play"></i>';
 
   function createDoodler() {
     grid.appendChild(doodler);
@@ -116,10 +118,13 @@ document.addEventListener('DOMContentLoaded', () => {
     while (grid.firstChild) {
       grid.removeChild(grid.firstChild);
     }
-    // grid.innerHTML = scoreText;
-    grid.innerHTML = score;
-    btn.innerHTML = restartBtn;
-    grid.append(btn);
+
+    grid.innerHTML = scoreText + score;
+    grid.appendChild(reloadDiv);
+    reloadDiv.appendChild(restartBtn);
+    restartBtn.innerHTML = restartBtnIcon;
+    restartBtn.setAttribute('id', 'restart');
+
     clearInterval(upTimerId);
     clearInterval(downTimerId);
     clearInterval(leftTimerId);
@@ -139,12 +144,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // window.onload = buttons;
-
-  // function buttons() {
-  //   document.querySelectorAll('button').onclick = btnControl;
-  // }
-
   const buttons = document.querySelectorAll('button');
 
   function btnControl(e) {
@@ -154,32 +153,15 @@ document.addEventListener('DOMContentLoaded', () => {
       moveLeft();
     } else if (e.target.id === 'straight') {
       moveStraight();
+    } else if (e.target.id === 'restart') {
+      isGameOver = false;
+      start();
     }
   }
 
   buttons.forEach((button) => {
     button.addEventListener('click', btnControl);
   });
-  // function goRight(e) {
-  //   if (e.target.id === 'right') {
-  //     moveRight();
-  //     //document.getElementById('right').addEventListener('click', moveRight);
-  //   }
-  // }
-
-  // function goLeft(e) {
-  //   if (e.target.id === 'left') {
-  //     moveLeft();
-  //     //document.getElementById('right').addEventListener('click', moveRight);
-  //   }
-  // }
-
-  // function goStraight(e) {
-  //   if (e.target.id === 'straight') {
-  //     moveStraight();
-  //     //document.getElementById('right').addEventListener('click', moveRight);
-  //   }
-  // }
 
   function moveLeft() {
     if (isGoingRight) {
@@ -219,31 +201,23 @@ document.addEventListener('DOMContentLoaded', () => {
   //attach a button
   grid.appendChild(div);
   div.innerHTML = welcomeText;
-  btn.innerHTML = startBtn;
-  grid.append(btn);
-  btn.setAttribute('id', 'start');
+  startBtn.innerHTML = startBtnIcon;
+  grid.append(startBtn);
+  startBtn.setAttribute('id', 'start');
 
-  document.getElementById('start').onclick = function start() {
+  document.getElementById('start').onclick = function () {
     div.style.display = 'none';
-    btn.style.display = 'none';
+    startBtn.style.display = 'none';
+    start();
+  };
+
+  function start() {
     if (!isGameOver) {
       createPlatforms();
       createDoodler();
       setInterval(movePlatforms, 30);
       jump();
       document.addEventListener('keyup', control);
-      // document.addEventListener('click', buttons);
-      document.addEventListener('click', buttons);
-
-      // document.addEventListener('click', goLeft);
-      // document.addEventListener('click', goRight);
-      // document.addEventListener('click', goStraight);
     }
-  };
-  // var st = document.getElementById('start');
-  // if (st.addEventListener) {
-  //   st.addEventListener('click', start(), false);
-  // } else if (st.attachEvent) {
-  //   st.attachEvent('onclick', start());
-  // }
+  }
 });
