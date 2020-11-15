@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let rightTimerId;
   let isGoingLeft = false;
   let isGoingRight = false;
-  const welcomeText = 'Welcome to Box Jump';
+  const welcomeText = 'Welcome to Doodle Jump';
   let scoreText = 'Your score is: ';
   let score = 0;
   const restartBtn = document.createElement('BUTTON');
